@@ -8,6 +8,6 @@ class Api::FilesController < ApplicationController
   end
 
   def permitted_params
-    params.permit(:name, tags: [])
+    params.permit(:name, :file, tags: [])
   end
 end
