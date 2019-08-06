@@ -1,4 +1,7 @@
 class FileUpload < ApplicationRecord
-  validates :name, presence: true
+  has_one_attached :file
+
+  validates :name, :tags, :file, presence: true
   validates :tags, tags: true
+  validates :file, file: true
 end
