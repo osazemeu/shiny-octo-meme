@@ -11,7 +11,7 @@ class FileValidator < ActiveModel::EachValidator
     if value.attached?
       record.errors.add(attribute, "has wrong format") unless value.attachment.blob.content_type.in?(PERMITTED_CONTENT_TYPES)
       record.errors.add(attribute, "has invalid filesize") unless value.blob.byte_size < MAX_SIZE
-      value.purge unless record.errors.messages[attribute].blank?
+      value.purge_later unless record.errors.messages.blank?
     end
   end
 end
