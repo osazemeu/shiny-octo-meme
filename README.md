@@ -13,11 +13,12 @@ cd shiny-octo-meme
 ### Database Initialization
 
 Ensure you have Postgres instance running locally in server
-rails db:migrate
+
+`rails db:migrate`
 
 ### Run application
 
-rails serve
+`rails serve`
 
 navigate to the following link on your browser
 <http://localhost:3000/> # Yay! You're on Rails!
