@@ -1,24 +1,54 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This API application uploads documents to a folder and follows the specification outlined.
 
-Things you may want to cover:
+## Getting it running locally
 
-* Ruby version
+Navigate to the content of the go
 
-* System dependencies
+`git clone https://github.com/osazemeu/shiny-octo-meme.git`
 
-* Configuration
+cd shiny-octo-meme
 
-* Database creation
+### Database Initialization
 
-* Database initialization
+Ensure you have Postgres instance running locally in server
+rails db:migrate
 
-* How to run the test suite
+### Run application
 
-* Services (job queues, cache servers, search engines, etc.)
+rails serve
 
-* Deployment instructions
+navigate to the following link on your browser
+<http://localhost:3000/> # Yay! You're on Rails!
 
-* ...
+## API Queries
+
+### Upload File Functionality
+
+Screenshot: <https://imgur.com/baNx4b1>
+
+```markdown
+curl -X POST \
+  http://localhost:3000/api/files \
+  -H 'Content-Type: multipart/form-data' \
+  -H 'Host: localhost:3000' \
+  -F name=osazeme \
+  -F 'tags[]=zync' \
+  -F 'file=@/Users/osazemeusen/Downloads/Amazon Web Services Ackenowledgement.pdf' \
+  -F 'tags[]=golem' \
+  -F 'tags[]=Phoenix' \
+  -F 'tags[]=syndicate' \
+  -F 'tags[]=drawl' \
+  -F 'tags[]=stinger'
+```
+
+### Search Functionality
+
+Screenshot: <https://imgur.com/IMmgCsj>
+
+```markdown
+curl -X GET \
+  'http://localhost:3000/api/files/+golem%20+zync%20-stinger/0' \
+  -H 'Host: localhost:3000'
+```
