@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_06_182004) do
+ActiveRecord::Schema.define(version: 2019_08_07_200041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2019_08_06_182004) do
     t.text "tags", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["tags"], name: "index_file_uploads_on_tags", using: :gin
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

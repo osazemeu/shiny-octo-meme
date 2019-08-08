@@ -4,4 +4,12 @@ class FileUpload < ApplicationRecord
   validates :name, :tags, :file, presence: true
   validates :tags, tags: true, presence: true
   validates :file, file: true, presence: true
+
+  before_save :downcase_tags, on: :create
+
+  private
+
+  def downcase_tags
+    self.tags.map { |elem| elem.downcase! }
+  end
 end
