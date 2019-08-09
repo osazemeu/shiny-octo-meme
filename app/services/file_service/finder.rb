@@ -59,14 +59,14 @@ module FileService
       minus_string = options[:minus].join(", ")
 
       @data ||= if options[:plus].length > 0 && options[:minus].length > 0
-                    FileUpload.where("tags @> ?", "{#{ plus_string }}").where.not("tags @> ?", "{#{ minus_string }}")
-                  elsif options[:plus].length > 0
-                    FileUpload.where("tags @> ?", "{#{ plus_string }}")
-                  elsif options[:minus].length > 0
-                    FileUpload.where.not("tags @> ?", "{#{ minus_string }}")
-                  else
-                    # TODO: Throw an error
-                  end
+                  FileUpload.where("tags @> ?", "{#{ plus_string }}").where.not("tags @> ?", "{#{ minus_string }}")
+                elsif options[:plus].length > 0
+                  FileUpload.where("tags @> ?", "{#{ plus_string }}")
+                elsif options[:minus].length > 0
+                  FileUpload.where.not("tags @> ?", "{#{ minus_string }}")
+                end
+
+      raise Error::InvalidSearchRequest if @data.blank?
 
       result
     end
