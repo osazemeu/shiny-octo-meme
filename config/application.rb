@@ -42,5 +42,7 @@ module FileOrganizer
         resource '*', headers: :any, methods: [:get, :post, :options]
       end
     end
+    config.autoload_paths += %W(#{config.root}/lib)
+    config.exceptions_app = routes
   end
 end

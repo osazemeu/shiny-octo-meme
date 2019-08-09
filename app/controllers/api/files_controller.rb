@@ -1,12 +1,12 @@
 class Api::FilesController < ApplicationController
   def create
     file_upload = FileUpload.create!(permitted_params)
-    render json: file_upload
+    render json: file_upload, status: :ok
   end
 
   def show
     result = FileService::Finder.call(permitted_params)
-    render json: result
+    render json: result, status: :ok
   end
 
   private
