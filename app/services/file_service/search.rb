@@ -17,11 +17,11 @@ module FileService
     def polarity_checker
       plus = []
       minus = []
-      query = @params[:tag_search_query]
+      query_param = @params[:tag_search_query]
 
-      raise Error::InvalidSearchRequest unless query.match?(/[\+\-]\w*/)
+      raise Error::InvalidSearchRequest unless query_param.match?(/[\+\-]\w*/)
 
-      query.split(" ").each do |elem|
+      query_param.split(" ").each do |elem|
         elem.slice!(0) && plus.push(elem) if elem.first == "+"
         elem.slice!(0) && minus.push(elem) if elem.first == "-"
       end
