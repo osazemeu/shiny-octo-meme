@@ -15,7 +15,8 @@ module FileService
     private
 
     def polarity_checker
-      plus, minus = [], []
+      plus = []
+      minus = []
       query = @params[:tag_search_query]
 
       raise Error::InvalidSearchRequest unless query.match?(/[\+\-]\w*/)
@@ -27,7 +28,7 @@ module FileService
 
       {
         plus: plus,
-        minus: minus
+        minus: minus,
       }
     end
 
@@ -40,8 +41,8 @@ module FileService
       @data
         .pluck(:tags)
         .flatten
-        .group_by{|e| e}
-        .map { |k, v| {tag: k, file_count: v.length} }
+        .group_by { |e| e }
+        .map { |k, v| { tag: k, file_count: v.length } }
     end
 
     def result
@@ -49,7 +50,7 @@ module FileService
         total_records: @data.size,
         related_tags: related_tags,
         file_count: record_filter.count,
-        records: record_filter
+        records: record_filter,
       }
     end
 
@@ -61,12 +62,12 @@ module FileService
       plus_string = options[:plus].join(", ")
       minus_string = options[:minus].join(", ")
 
-      @data ||= if options[:plus].length > 0 && options[:minus].length > 0
-                  FileUpload.where("tags @> ?", "{#{ plus_string }}").where.not("tags @> ?", "{#{ minus_string }}")
-                elsif options[:plus].length > 0
-                  FileUpload.where("tags @> ?", "{#{ plus_string }}")
-                elsif options[:minus].length > 0
-                  FileUpload.where.not("tags @> ?", "{#{ minus_string }}")
+      @data ||= if !options[:plus].empty? && !options[:minus].empty?
+                  FileUpload.where("tags @> ?", "{#{plus_string}}").where.not("tags @> ?", "{#{minus_string}}")
+                elsif !options[:plus].empty?
+                  FileUpload.where("tags @> ?", "{#{plus_string}}")
+                elsif !options[:minus].empty?
+                  FileUpload.where.not("tags @> ?", "{#{minus_string}}")
                 end
 
       raise ActiveRecord::RecordNotFound if @data.blank?

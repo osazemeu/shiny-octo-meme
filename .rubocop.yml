@@ -1,0 +1,134 @@
+require:
+  - rubocop-performance
+  - rubocop-rails
+
+AllCops:
+  DisplayCopNames: yes
+  TargetRubyVersion: 2.4
+  TargetRailsVersion: 5.0.7
+  Exclude:
+    - "bin/*"
+    - "db/schema.rb"
+    - "\\.*"
+
+# disables
+Bundler/OrderedGems: { Enabled: no }
+Lint/AmbiguousRegexpLiteral: { Enabled: no }
+Lint/UnusedMethodArgument: { Enabled: no } # unreliable with keyword arguments
+Lint/UselessAccessModifier: { Enabled: no }
+Metrics: { Enabled: no }
+Naming/AccessorMethodName: { Enabled: no }
+Naming/HeredocDelimiterNaming: { Enabled: no }
+Naming/PredicateName: { Enabled: no }
+Naming/VariableNumber: { Enabled: no }
+Style/AccessModifierDeclarations: { Enabled: no }
+Style/Alias: { Enabled: no }
+Style/AsciiComments: { Enabled: no }
+Style/BracesAroundHashParameters: { Enabled: no }
+Style/ClassAndModuleChildren: { Enabled: no }
+Style/CommentedKeyword: { Enabled: no }
+Style/DateTime: { Enabled: no } # don't want to risk bugs caused by subtle semantic differences here
+Style/Documentation: { Enabled: no }
+Style/DoubleNegation: { Enabled: no }
+Style/FormatString: { Enabled: no }
+Style/FormatStringToken: { Enabled: no }
+Style/FrozenStringLiteralComment: { Enabled: no }
+Style/GuardClause: { Enabled: no }
+Style/IfUnlessModifier: { Enabled: no }
+Style/NumericPredicate: { Enabled: no }
+Style/PreferredHashMethods: { Enabled: no } # tries to use .has_key? for ActiveModel::Errors and other hash-like objects
+Style/RedundantParentheses: { Enabled: no } # cause infinite correction loop in some cases.
+Style/RegexpLiteral: { Enabled: no }
+Style/SingleLineBlockParams: { Enabled: no }
+StringLiteralsInInterpolation: { Enabled: no }
+Naming/UncommunicativeMethodParamName: { Enabled: no }
+Naming/RescuedExceptionsVariableName: { Enabled: no }
+Naming/MemoizedInstanceVariableName: { Enabled: no }
+Layout/AlignHash: { Enabled: no }
+Layout/ClosingParenthesisIndentation: { Enabled: no }
+Layout/EmptyLinesAroundAccessModifier: { Enabled: no } # Bugged, picks up methods called `private`
+Layout/RescueEnsureAlignment: { Enabled: no }
+Lint/ToJSON: { Enabled: no }
+Performance/RegexpMatch: { Enabled: yes }
+
+# rails
+# TODO: Enable some necessary rules later after we have upgraded Rails to >= 5.1.6
+Rails: { Enabled: yes }
+Rails/ActionFilter: { Enabled: no }
+Rails/ActiveRecordAliases: { Enabled: no }
+Rails/ApplicationRecord: { Enabled: yes }
+Rails/ApplicationJob: { Enabled: yes }
+Rails/AssertNot: { Enabled: yes }
+Rails/BelongsTo: { Enabled: no }
+Rails/Blank: { Enabled: yes }
+Rails/BulkChangeTable: { Enabled: no }
+Rails/CreateTableWithTimestamps: { Enabled: no }
+Rails/Date: { Enabled: no }
+Rails/Delegate: { Enabled: no }
+Rails/DelegateAllowBlank: { Enabled: no }
+Rails/DynamicFindBy: { Enabled: no }
+Rails/EnumUniqueness: { Enabled: no }
+Rails/EnvironmentComparison: { Enabled: no }
+Rails/Exit: { Enabled: no }
+Rails/FilePath: { Enabled: no }
+Rails/FindBy: { Enabled: no }
+Rails/FindEach: { Enabled: no }
+Rails/HasAndBelongsToMany: { Enabled: no }
+Rails/HasManyOrHasOneDependent: { Enabled: no }
+Rails/HelperInstanceVariable: { Enabled: no }
+Rails/HttpPositionalArguments: { Enabled: no }
+Rails/HttpStatus: { Enabled: yes }
+Rails/IgnoredSkipActionFilterOption: { Enabled: no }
+Rails/InverseOf: { Enabled: no }
+Rails/LexicallyScopedActionFilter: { Enabled: no }
+Rails/LinkToBlank: { Enabled: yes }
+# This is covered by strong migration
+Rails/NotNullColumn: { Enabled: no }
+Rails/Output:
+  Exclude:
+    - db/seeds.rb
+Rails/OutputSafety: { Enabled: no }
+Rails/PluralizationGrammar: { Enabled: no }
+Rails/Presence: { Enabled: yes }
+Rails/Present: { Enabled: yes }
+Rails/ReadWriteAttribute: { Enabled: no }
+Rails/RedundantReceiverInWithOptions: { Enabled: no }
+Rails/RefuteMethods: { Enabled: no }
+Rails/RelativeDateConstant: { Enabled: no }
+Rails/RequestReferer: { Enabled: no }
+# TODO: Enable this. A lot of migrations are irreversible
+Rails/ReversibleMigration: { Enabled: no }
+Rails/SafeNavigation: { Enabled: yes }
+Rails/SaveBang: { Enabled: no }
+Rails/ScopeArgs: { Enabled: no }
+Rails/SkipsModelValidations: { Enabled: no }
+# TODO: Enable this. We didn't specify time zone in many places
+Rails/TimeZone: { Enabled: no }
+Rails/UniqBeforePluck: { Enabled: no }
+Rails/UnknownEnv: { Enabled: no }
+Rails/Validation: { Enabled: no }
+
+# customizations
+Layout/EmptyLinesAroundBlockBody: { Enabled: no }
+Layout/SpaceAroundEqualsInParameterDefault:
+  EnforcedStyle: space
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+Layout/IndentFirstHashElement:
+  EnforcedStyle: consistent
+Style/EmptyElse:
+  EnforcedStyle: empty
+Style/FloatDivision: { Enabled: no }
+Style/ClassCheck:
+  EnforcedStyle: kind_of?
+Layout/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+Layout/AlignArguments:
+  EnforcedStyle: with_fixed_indentation
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+Style/WordArray: { Enabled: no }
