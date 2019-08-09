@@ -1,12 +1,12 @@
 class Api::FilesController < ApplicationController
   def create
-    file_upload = FileUpload.create!(permitted_params)
-    render json: file_upload, status: :ok
+    file = FileService::Upload.call(permitted_params)
+    render json: file, status: :ok
   end
 
   def show
-    result = FileService::Search.call(permitted_params)
-    render json: result, status: :ok
+    search = FileService::Search.call(permitted_params)
+    render json: search, status: :ok
   end
 
   private
