@@ -55,7 +55,10 @@ module FileService
     end
 
     def record_filter
-      @data.limit(DEFAULT_LIMIT).offset(offset)
+      @data
+        .select(:id, :name)
+        .limit(DEFAULT_LIMIT)
+        .offset(offset)
     end
 
     def search_query(options)
