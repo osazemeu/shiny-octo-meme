@@ -1,5 +1,5 @@
 module FileService
-  class Finder < ApplicationService
+  class Search < ApplicationService
     DEFAULT_LIMIT = 10
     DEFAULT_OFFSET = 0
 
@@ -16,8 +16,11 @@ module FileService
 
     def polarity_checker
       plus, minus = [], []
+      query = @params[:tag_search_query]
 
-      @params[:tag_search_query].split(" ").each do |elem|
+      raise Error::InvalidSearchRequest unless query.match?(/[\+\-]\w*/)
+
+      query.split(" ").each do |elem|
         elem.slice!(0) && plus.push(elem) if elem.first == "+"
         elem.slice!(0) && minus.push(elem) if elem.first == "-"
       end
@@ -66,7 +69,7 @@ module FileService
                   FileUpload.where.not("tags @> ?", "{#{ minus_string }}")
                 end
 
-      raise Error::InvalidSearchRequest if @data.blank?
+      raise ActiveRecord::RecordNotFound if @data.blank?
 
       result
     end

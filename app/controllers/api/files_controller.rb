@@ -5,7 +5,7 @@ class Api::FilesController < ApplicationController
   end
 
   def show
-    result = FileService::Finder.call(permitted_params)
+    result = FileService::Search.call(permitted_params)
     render json: result, status: :ok
   end
 
