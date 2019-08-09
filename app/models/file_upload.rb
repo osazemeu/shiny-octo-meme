@@ -10,6 +10,6 @@ class FileUpload < ApplicationRecord
   private
 
   def downcase_tags
-    self.tags.map { |elem| elem.downcase! }
+    tags.map(&:downcase!)
   end
 end
