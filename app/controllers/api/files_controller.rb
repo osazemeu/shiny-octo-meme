@@ -1,7 +1,7 @@
 class Api::FilesController < ApplicationController
   def create
     file = FileService::Upload.call(permitted_params)
-    render json: file, status: :ok
+    render json: { uuid: file.id }, status: :ok
   end
 
   def show
