@@ -16,6 +16,10 @@ Ensure you have Postgres instance running locally in server and run the followin
 
 `rails db:setup`
 
+### Run tests
+
+`rails test`
+
 ### Run application
 
 `rails serve`
@@ -56,13 +60,13 @@ curl -X GET \
 
 ### Design Decision
 
-I went with Service Oriented Architecture where services are used to enhanced separation of concern. For uuid, I used PostgreSQL uuid for performance and also to reduce chances for id collision to future proof. To enhance performance for queries relating to the tag field, I used `GIN` index. For file uploads, I used `ActiveStorage` and implemented rollback and error message for validation of files. I intentionally didn't include activerecord-serializer because requirements were pretty straightforward, but it could be included on request. Error handling was done by extending existing functionality in rails.
+I went with Service Oriented Architecture where services are used for enhanced separation of concern. For uuid, I used PostgreSQL uuid for to generate id. To enhance performance for queries relating to the tag field, I used `GIN` index. For file uploads, I used `ActiveStorage` and implemented rollback and error message for validation of files. I intentionally didn't include activerecord-serializer because requirements were pretty straightforward, but it could be included on request. Error handling was done by extending existing functionality in rails.
 
 #### Future enhancements
 
-I could use redis across the entire application to further improve query performance.
-Write unit test, integration test, etc to improve test coverage.
+Write more unit test and integration test, etc to improve coverage.
+As the application scales with more users and similar search queries, we could use redis to aggressively cache searches for faster retrievals. I didn't include it because I felt the cache would be rewritten rather often (i.e. more writes than reads would invalidate most queries), causing thrashing.
 
 #### Time-Spent
 
-11.32hrs
+8.32hrs
